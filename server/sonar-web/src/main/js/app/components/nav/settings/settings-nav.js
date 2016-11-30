@@ -63,71 +63,74 @@ export default React.createClass({
     });
 
     return (
-        <div className="container">
-          <ul className="nav navbar-nav nav-crumbs">
-            {this.renderLink('/settings', translate('layout.settings'))}
-          </ul>
-
-          <ul className="nav navbar-nav nav-tabs">
-            <li className={configurationClassNames}>
-              <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-                {translate('sidebar.project_settings')}
-                {' '}
-                <i className="icon-dropdown"></i>
-              </a>
-              <ul className="dropdown-menu">
-                {this.renderLink('/settings', translate('settings.page'), url => window.location.pathname === url)}
-                {this.renderLink('/settings/licenses', translate('property.category.licenses'))}
-                {this.renderLink('/settings/encryption', translate('property.category.security.encryption'))}
-                {this.renderLink('/settings/server_id', translate('property.category.server_id'))}
-                {this.renderLink('/metrics', 'Custom Metrics')}
-                {this.props.extensions.map(e => this.renderLink(e.url, e.name))}
+        <nav className="navbar navbar-context page-container" id="context-navigation">
+          <div className="navbar-context-inner">
+            <div className="container">
+              <ul className="nav navbar-nav nav-crumbs">
+                {this.renderLink('/settings', translate('layout.settings'))}
               </ul>
-            </li>
 
-            <li className={securityClassName}>
-              <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-                {translate('sidebar.security')}
-                {' '}
-                <i className="icon-dropdown"></i>
-              </a>
-              <ul className="dropdown-menu">
-                {this.renderLink('/users', translate('users.page'))}
-                {this.renderLink('/groups', translate('user_groups.page'))}
-                {this.renderLink('/roles/global',
-                    translate('global_permissions.page'))}
-                {this.renderLink('/permission_templates',
-                    translate('permission_templates'))}
+              <ul className="nav navbar-nav nav-tabs">
+                <li className={configurationClassNames}>
+                  <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+                    {translate('sidebar.project_settings')}
+                    {' '}
+                    <i className="icon-dropdown"></i>
+                  </a>
+                  <ul className="dropdown-menu">
+                    {this.renderLink('/settings', translate('settings.page'), url => window.location.pathname === url)}
+                    {this.renderLink('/settings/licenses', translate('property.category.licenses'))}
+                    {this.renderLink('/settings/encryption', translate('property.category.security.encryption'))}
+                    {this.renderLink('/settings/server_id', translate('property.category.server_id'))}
+                    {this.renderLink('/metrics', 'Custom Metrics')}
+                    {this.props.extensions.map(e => this.renderLink(e.url, e.name))}
+                  </ul>
+                </li>
+
+                <li className={securityClassName}>
+                  <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+                    {translate('sidebar.security')}
+                    {' '}
+                    <i className="icon-dropdown"></i>
+                  </a>
+                  <ul className="dropdown-menu">
+                    {this.renderLink('/users', translate('users.page'))}
+                    {this.renderLink('/groups', translate('user_groups.page'))}
+                    {this.renderLink('/roles/global',
+                        translate('global_permissions.page'))}
+                    {this.renderLink('/permission_templates',
+                        translate('permission_templates'))}
+                  </ul>
+                </li>
+
+                <li className={projectsClassName}>
+                  <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+                    {translate('sidebar.projects')}
+                    {' '}
+                    <i className="icon-dropdown"></i>
+                  </a>
+                  <ul className="dropdown-menu">
+                    {this.renderLink('/projects_admin', 'Management')}
+                    {this.renderLink('/background_tasks',
+                        translate('background_tasks.page'))}
+                  </ul>
+                </li>
+
+                <li className={systemClassName}>
+                  <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+                    {translate('sidebar.system')}
+                    {' '}
+                    <i className="icon-dropdown"></i>
+                  </a>
+                  <ul className="dropdown-menu">
+                    {this.renderLink('/updatecenter', translate('update_center.page'))}
+                    {this.renderLink('/system', translate('system_info.page'))}
+                  </ul>
+                </li>
               </ul>
-            </li>
-
-            <li className={projectsClassName}>
-              <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-                {translate('sidebar.projects')}
-                {' '}
-                <i className="icon-dropdown"></i>
-              </a>
-              <ul className="dropdown-menu">
-                {this.renderLink('/projects_admin', 'Management')}
-                {this.renderLink('/background_tasks',
-                    translate('background_tasks.page'))}
-              </ul>
-            </li>
-
-            <li className={systemClassName}>
-              <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-                {translate('sidebar.system')}
-                {' '}
-                <i className="icon-dropdown"></i>
-              </a>
-              <ul className="dropdown-menu">
-                {this.renderLink('/updatecenter', translate('update_center.page'))}
-                {this.renderLink('/system', translate('system_info.page'))}
-              </ul>
-            </li>
-          </ul>
-        </div>
-
+            </div>
+          </div>
+        </nav>
     );
   }
 });

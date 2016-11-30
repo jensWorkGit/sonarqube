@@ -21,11 +21,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrentUser } from '../store/users/actions';
-import { fetchLanguages } from '../store/rootActions';
+import { fetchLanguages, fetchAppState } from '../store/rootActions';
 import { requestMessages } from '../../helpers/l10n';
 
 class App extends React.Component {
   static propTypes = {
+    fetchAppState: React.PropTypes.func.isRequired,
     fetchCurrentUser: React.PropTypes.func.isRequired,
     fetchLanguages: React.PropTypes.func.isRequired,
     children: React.PropTypes.element.isRequired
@@ -38,6 +39,7 @@ class App extends React.Component {
   componentDidMount () {
     Promise.all([
       requestMessages(),
+      this.props.fetchAppState(),
       this.props.fetchCurrentUser()
     ]).then(() => {
       setTimeout(() => {
@@ -59,5 +61,5 @@ class App extends React.Component {
 
 export default connect(
     () => ({}),
-    { fetchCurrentUser, fetchLanguages }
+    { fetchAppState, fetchCurrentUser, fetchLanguages }
 )(App);

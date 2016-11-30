@@ -26,6 +26,7 @@ import App from '../components/App';
 import Global from '../components/Global';
 import Landing from '../components/Landing';
 import ProjectContainer from '../components/ProjectContainer';
+import AdminContainer from '../components/AdminContainer';
 import NotFound from '../components/NotFound';
 import aboutRoutes from '../../apps/about/routes';
 import accountRoutes from '../../apps/account/routes';
@@ -73,23 +74,13 @@ const startReactApp = () => {
             <Route component={Global}>
               <Route path="about">{aboutRoutes}</Route>
               <Route path="account">{accountRoutes}</Route>
-              <Route path="background_tasks">{backgroundTasksRoutes}</Route>
               <Route path="coding_rules">{codingRulesRoutes}</Route>
-              <Route path="groups">{groupsRoutes}</Route>
               <Route path="issues">{issuesRoutes}</Route>
               <Route path="maintenance">{maintenanceRoutes}</Route>
-              <Route path="metrics">{metricsRoutes}</Route>
-              <Route path="permission_templates">{permissionTemplatesRoutes}</Route>
               <Route path="projects">{projectsRoutes}</Route>
-              <Route path="projects_admin">{projectsAdminRoutes}</Route>
-              <Route path="roles/global">{globalPermissionsRoutes}</Route>
-              <Route path="settings">{settingsRoutes}</Route>
               <Route path="setup">{setupRoutes}</Route>
-              <Route path="system">{systemRoutes}</Route>
               <Route path="quality_gates">{qualityGatesRoutes}</Route>
               <Route path="profiles">{qualityProfilesRoutes}</Route>
-              <Route path="updatecenter">{updateCenterRoutes}</Route>
-              <Route path="users">{usersRoutes}</Route>
               <Route path="web_api">{webAPIRoutes}</Route>
 
               <Route component={ProjectContainer}>
@@ -104,6 +95,19 @@ const startReactApp = () => {
                   {projectAdminRoutes}
                 </Route>
                 <Route path="project_roles">{projectPermissionsRoutes}</Route>
+              </Route>
+
+              <Route component={AdminContainer}>
+                <Route path="background_tasks">{backgroundTasksRoutes}</Route>
+                <Route path="groups">{groupsRoutes}</Route>
+                <Route path="metrics">{metricsRoutes}</Route>
+                <Route path="permission_templates">{permissionTemplatesRoutes}</Route>
+                <Route path="projects_admin">{projectsAdminRoutes}</Route>
+                <Route path="roles/global">{globalPermissionsRoutes}</Route>
+                <Route path="settings">{settingsRoutes}</Route>
+                <Route path="system">{systemRoutes}</Route>
+                <Route path="updatecenter">{updateCenterRoutes}</Route>
+                <Route path="users">{usersRoutes}</Route>
               </Route>
             </Route>
 

@@ -18,15 +18,23 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import { getLanguages } from '../../api/languages';
-import { getComponentNavigation } from '../../api/nav';
+import { getGlobalNavigation, getComponentNavigation } from '../../api/nav';
 import { receiveLanguages } from './languages/actions';
 import { receiveComponents } from './components/actions';
 import { addGlobalErrorMessage } from '../../components/store/globalMessages';
 import { parseError } from '../../apps/code/utils';
+import { setAppState } from './appState/duck';
 
 const onFail = dispatch => error => {
   parseError(error).then(message => dispatch(addGlobalErrorMessage(message)));
 };
+
+export const fetchAppState = () => dispatch => (
+    getGlobalNavigation().then(
+        appState => dispatch(setAppState(appState)),
+        onFail(dispatch)
+    )
+);
 
 export const fetchLanguages = () => dispatch => {
   return getLanguages().then(
@@ -37,9 +45,14 @@ export const fetchLanguages = () => dispatch => {
 
 const mapUuidToId = project => ({ ...project, id: project.uuid });
 
+const addQualifier = project => ({
+  ...project,
+  qualifier: project.breadcrumbs[project.breadcrumbs.length - 1].qualifier
+});
+
 export const fetchProject = key => dispatch => (
     getComponentNavigation(key).then(
-        component => dispatch(receiveComponents([mapUuidToId(component)])),
+        component => dispatch(receiveComponents([mapUuidToId(addQualifier(component))])),
         onFail(dispatch)
     )
 );

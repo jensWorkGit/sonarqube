@@ -31,8 +31,9 @@ import Plugins from './plugins';
 const App = new Marionette.Application();
 const init = function (el) {
   // State
+  // FIXME window.SS.updateCenterActive
   this.state = new Backbone.Model({
-    updateCenterActive: window.SS.updateCenterActive
+    updateCenterActive: true
   });
 
   // Layout

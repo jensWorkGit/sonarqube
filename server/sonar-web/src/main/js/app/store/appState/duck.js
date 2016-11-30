@@ -17,33 +17,33 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import React from 'react';
-import { connect } from 'react-redux';
-import Header from './Header';
-import Form from './Form';
-import { getComponent } from '../../../app/store/rootReducer';
+// @flow
+import { createValue } from '../../../components/store/generalReducers';
 
-class Deletion extends React.Component {
-  static propTypes = {
-    component: React.PropTypes.object
-  };
+type AppState = {
+  qualifiers: Array<string>
+};
 
-  render () {
-    if (!this.props.component) {
-      return null;
-    }
-
-    return (
-        <div className="page page-limited">
-          <Header/>
-          <Form component={this.props.component}/>
-        </div>
-    );
-  }
+type Action = {
+  type: string,
+  appState: AppState
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  component: getComponent(state, ownProps.location.query.id)
+export const actions = {
+  SET_APP_STATE: 'SET_APP_STATE'
+};
+
+export const setAppState = (appState: AppState): Action => ({
+  type: actions.SET_APP_STATE,
+  appState
 });
 
-export default connect(mapStateToProps)(Deletion);
+export default createValue(
+    (state: AppState, action: Action) => action.type === actions.SET_APP_STATE,
+    () => false,
+    (state: AppState, action: Action) => action.appState
+);
+
+export const getRootQualifiers = (state: AppState) => (
+    state.qualifiers
+);

@@ -38,10 +38,11 @@ class ProjectContainer extends React.Component {
       return null;
     }
 
-    // FIXME conf
+    const configuration = this.props.project.configuration || {};
+
     return (
         <div>
-          <ComponentNav component={this.props.project} conf={{}}/>
+          <ComponentNav component={this.props.project} conf={configuration}/>
           {this.props.children}
         </div>
     );

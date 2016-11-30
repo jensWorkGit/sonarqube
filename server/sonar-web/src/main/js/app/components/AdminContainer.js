@@ -18,32 +18,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import Header from './Header';
-import Form from './Form';
-import { getComponent } from '../../../app/store/rootReducer';
+import SettingsNav from './nav/settings/settings-nav';
 
-class Deletion extends React.Component {
-  static propTypes = {
-    component: React.PropTypes.object
-  };
-
+export default class AdminContainer extends React.Component {
   render () {
-    if (!this.props.component) {
-      return null;
-    }
-
     return (
-        <div className="page page-limited">
-          <Header/>
-          <Form component={this.props.component}/>
+        <div>
+          <SettingsNav/>
+          {this.props.children}
         </div>
     );
   }
 }
-
-const mapStateToProps = (state, ownProps) => ({
-  component: getComponent(state, ownProps.location.query.id)
-});
-
-export default connect(mapStateToProps)(Deletion);
