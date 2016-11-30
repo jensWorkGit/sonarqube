@@ -20,12 +20,14 @@
 // @flow
 import React from 'react';
 import GlobalNav from './nav/global/global-nav';
+import GlobalMessagesContainer from './GlobalMessagesContainer';
 
 export default class Global extends React.Component {
   render () {
     return (
         <div className="page-wrapper page-wrapper-global" id="container">
           <GlobalNav/>
+          <GlobalMessagesContainer/>
           {this.props.children}
         </div>
     );
