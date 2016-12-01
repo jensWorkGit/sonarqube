@@ -18,6 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import React from 'react';
+import { connect } from 'react-redux';
 import keyBy from 'lodash/keyBy';
 import AboutProjects from './AboutProjects';
 import EntryIssueTypes from './EntryIssueTypes';
@@ -28,11 +29,17 @@ import AboutLeakPeriod from './AboutLeakPeriod';
 import AboutStandards from './AboutStandards';
 import AboutScanners from './AboutScanners';
 import { translate } from '../../../helpers/l10n';
-import '../styles.css';
 import { searchProjects } from '../../../api/components';
 import { getFacet } from '../../../api/issues';
+import { getSettingValue } from '../../../app/store/rootReducer';
+import '../styles.css';
 
-export default class AboutApp extends React.Component {
+class AboutApp extends React.Component {
+  static propTypes = {
+    customLogoUrl: React.PropTypes.string,
+    customLogoWidth: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
+  };
+
   state = {
     loading: true
   };
@@ -62,16 +69,11 @@ export default class AboutApp extends React.Component {
       this.loadIssues()
     ]).then(responses => {
       if (this.mounted) {
-        // FIXME
-        const options = {};
-
         const [projectsCount, issues] = responses;
         const issueTypes = keyBy(issues.facet, 'val');
         this.setState({
           projectsCount,
           issueTypes,
-          logoUrl: options.logoUrl,
-          logoWidth: options.logoWidth,
           loading: false
         });
       }
@@ -86,10 +88,10 @@ export default class AboutApp extends React.Component {
     // FIXME
     const landingText = '';
 
-    const logoUrl = this.state.logoUrl || `${window.baseUrl}/images/logo.svg`;
-    const logoWidth = this.state.logoWidth || 100;
+    const logoUrl = this.props.customLogoUrl || `${window.baseUrl}/images/logo.svg`;
+    const logoWidth = Number(this.props.customLogoWidth || 100);
     const logoHeight = 30;
-    const logoTitle = this.state.logoUrl ? '' : translate('layout.sonar.slogan');
+    const logoTitle = this.props.customLogoUrl ? '' : translate('layout.sonar.slogan');
 
     return (
         <div id="about-page" className="about-page">
@@ -145,3 +147,10 @@ export default class AboutApp extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  customLogoUrl: getSettingValue(state, 'sonar.lf.logoUrl').value,
+  customLogoWidth: getSettingValue(state, 'sonar.lf.logoWidthPx').value
+});
+
+export default connect(mapStateToProps)(AboutApp);

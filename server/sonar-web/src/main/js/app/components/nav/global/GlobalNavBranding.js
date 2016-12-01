@@ -18,29 +18,42 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import React from 'react';
+import { connect } from 'react-redux';
+import { getSettingValue, getCurrentUser } from '../../../store/rootReducer';
 import { translate } from '../../../../helpers/l10n';
 
-export default React.createClass({
-  renderLogo() {
-    const url = this.props.logoUrl || `${window.baseUrl}/images/logo.svg`;
-    const width = this.props.logoWidth || 100;
+class GlobalNavBranding extends React.Component {
+  static propTypes = {
+    customLogoUrl: React.PropTypes.string,
+    customLogoWidth: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
+  };
+
+  renderLogo () {
+    const url = this.props.customLogoUrl || `${window.baseUrl}/images/logo.svg`;
+    const width = this.props.customLogoWidth || 100;
     const height = 30;
     const title = translate('layout.sonar.slogan');
-    return <img src={url}
-                width={width}
-                height={height}
-                alt={title}
-                title={title}/>;
-  },
+    return (
+        <img src={url} width={width} height={height} alt={title} title={title}/>
+    );
+  }
 
-  render() {
+  render () {
     const homeController = this.props.currentUser ? '/projects/favorite' : '/about';
     const homeUrl = window.baseUrl + homeController;
-    const homeLinkClassName = 'navbar-brand' + (this.props.logoUrl ? ' navbar-brand-custom' : '');
+    const homeLinkClassName = 'navbar-brand' + (this.props.customLogoUrl ? ' navbar-brand-custom' : '');
     return (
         <div className="navbar-header">
           <a className={homeLinkClassName} href={homeUrl}>{this.renderLogo()}</a>
         </div>
     );
   }
+}
+
+const mapStateToProps = state => ({
+  currentUser: getCurrentUser(state),
+  customLogoUrl: getSettingValue(state, 'sonar.lf.logoUrl').value,
+  customLogoWidth: getSettingValue(state, 'sonar.lf.logoWidthPx').value
 });
+
+export default connect(mapStateToProps)(GlobalNavBranding);

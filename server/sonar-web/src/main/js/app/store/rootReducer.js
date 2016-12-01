@@ -131,6 +131,10 @@ export const getPermissionsAppError = state => (
     fromPermissionsApp.getError(state.permissionsApp)
 );
 
+export const getSettingValue = (state, key) => (
+    fromSettingsApp.getValue(state.settingsApp, key)
+);
+
 export const getSettingsAppDefinition = (state, key) => (
     fromSettingsApp.getDefinition(state.settingsApp, key)
 );

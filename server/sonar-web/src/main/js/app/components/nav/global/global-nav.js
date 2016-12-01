@@ -19,7 +19,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import GlobalNavBranding from './global-nav-branding';
+import GlobalNavBranding from './GlobalNavBranding';
 import GlobalNavMenu from './global-nav-menu';
 import GlobalNavUser from './global-nav-user';
 import GlobalNavSearch from './global-nav-search';
@@ -57,7 +57,7 @@ const GlobalNav = React.createClass({
     return (
         <nav className="navbar navbar-global page-container" id="global-navigation">
           <div className="container">
-            <GlobalNavBranding {...this.props}/>
+            <GlobalNavBranding/>
 
             <GlobalNavMenu {...this.props}/>
 

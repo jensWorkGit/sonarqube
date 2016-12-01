@@ -21,6 +21,7 @@ import React from 'react';
 import DashboardNameMixin from '../dashboard-name-mixin';
 import LinksMixin from '../links-mixin';
 import { translate } from '../../../../helpers/l10n';
+import { isUserAdmin } from '../../../../helpers/users';
 
 export default React.createClass({
   mixins: [DashboardNameMixin, LinksMixin],
@@ -77,13 +78,9 @@ export default React.createClass({
   },
 
   renderAdministrationLink () {
-    // FIXME check permissions
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser || !isUserAdmin(this.props.currentUser)) {
       return null;
     }
-    // if (!window.SS.isUserAdmin) {
-    //   return null;
-    // }
     const url = window.baseUrl + '/settings';
     return (
         <li className={this.activeLink('/settings')}>

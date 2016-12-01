@@ -19,7 +19,7 @@
  */
 // @flow
 import React from 'react';
-import GlobalNavBranding from '../../../app/components/nav/global/global-nav-branding';
+import GlobalNavBranding from '../../../app/components/nav/global/GlobalNavBranding';
 
 export default class Header extends React.Component {
   render () {

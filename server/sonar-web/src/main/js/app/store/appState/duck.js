@@ -24,7 +24,7 @@ type AppState = {
   qualifiers: Array<string>
 };
 
-type Action = {
+export type Action = {
   type: string,
   appState: AppState
 }
