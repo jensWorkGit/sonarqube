@@ -55,8 +55,8 @@ class Avatar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  enableGravatar: getSettingValue(state, 'sonar.lf.enableGravatar').value === 'true',
-  gravatarServerUrl: getSettingValue(state, 'sonar.lf.gravatarServerUrl').value
+  enableGravatar: (getSettingValue(state, 'sonar.lf.enableGravatar') || {}).value === 'true',
+  gravatarServerUrl: (getSettingValue(state, 'sonar.lf.gravatarServerUrl') || {}).value
 });
 
 export default connect(mapStateToProps)(Avatar);

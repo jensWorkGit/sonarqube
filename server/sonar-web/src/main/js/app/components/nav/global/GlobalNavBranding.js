@@ -52,8 +52,8 @@ class GlobalNavBranding extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: getCurrentUser(state),
-  customLogoUrl: getSettingValue(state, 'sonar.lf.logoUrl').value,
-  customLogoWidth: getSettingValue(state, 'sonar.lf.logoWidthPx').value
+  customLogoUrl: (getSettingValue(state, 'sonar.lf.logoUrl') || {}).value,
+  customLogoWidth: (getSettingValue(state, 'sonar.lf.logoWidthPx') || {}).value
 });
 
 export default connect(mapStateToProps)(GlobalNavBranding);
