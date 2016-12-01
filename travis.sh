@@ -56,7 +56,7 @@ CI)
     # in Maven local repository. Phase "verify" is enough.
 
     export MAVEN_OPTS="-Xmx1G -Xms128m"
-    mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar \
+    mvn org.jacoco:jacoco-maven-plugin:prepare-agent deploy sonar:sonar \
         -Dclirr=true \
         -Dsonar.analysis.mode=issues \
         -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
