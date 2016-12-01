@@ -29,11 +29,10 @@ import it.duplication.CrossProjectDuplicationsOnRemoveFileTest;
 import it.duplication.CrossProjectDuplicationsTest;
 import it.duplication.DuplicationsTest;
 import it.duplication.NewDuplicationsTest;
-import it.serverSystem.HttpHeadersTest;
-import it.projectComparison.ProjectComparisonTest;
 import it.projectEvent.EventTest;
 import it.projectSearch.SearchProjectsTest;
 import it.qualityProfile.QualityProfilesPageTest;
+import it.serverSystem.HttpHeadersTest;
 import it.serverSystem.LogsTest;
 import it.serverSystem.ServerSystemTest;
 import it.ui.UiTest;
@@ -82,8 +81,6 @@ import static util.ItUtils.xooPlugin;
   PurgeTest.class,
   // project event
   EventTest.class,
-  // project comparison
-  ProjectComparisonTest.class,
   // project search
   SearchProjectsTest.class,
   // http
