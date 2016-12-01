@@ -73,7 +73,7 @@ export default class LoginForm extends React.Component {
 
           <div>
             <div className="text-right overflow-hidden">
-              <button type="submit">{translate('sessions.log_in')}</button>
+              <button name="commit" type="submit">{translate('sessions.log_in')}</button>
               <a className="spacer-left" href={window.baseUrl + '/'}>{translate('cancel')}</a>
             </div>
           </div>
