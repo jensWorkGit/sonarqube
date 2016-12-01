@@ -46,6 +46,7 @@ import projectsRoutes from '../../apps/projects/routes';
 import projectsAdminRoutes from '../../apps/projects-admin/routes';
 import qualityGatesRoutes from '../../apps/quality-gates/routes';
 import qualityProfilesRoutes from '../../apps/quality-profiles/routes';
+import sessionsRoutes from '../../apps/sessions/routes';
 import settingsRoutes from '../../apps/settings/routes';
 import systemRoutes from '../../apps/system/routes';
 import updateCenterRoutes from '../../apps/update-center/routes';
@@ -70,6 +71,8 @@ const startReactApp = () => {
         <Router history={history}>
           <Route path="/" component={App}>
             <IndexRoute component={Landing}/>
+
+            <Route path="sessions">{sessionsRoutes}</Route>
 
             <Route component={Global}>
               <Route path="about">{aboutRoutes}</Route>

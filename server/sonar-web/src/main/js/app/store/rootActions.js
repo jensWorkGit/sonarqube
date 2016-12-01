@@ -19,6 +19,7 @@
  */
 import { getLanguages } from '../../api/languages';
 import { getGlobalNavigation, getComponentNavigation } from '../../api/nav';
+import * as auth from '../../api/auth';
 import { receiveLanguages } from './languages/actions';
 import { receiveComponents } from './components/actions';
 import { addGlobalErrorMessage } from '../../components/store/globalMessages';
@@ -53,6 +54,13 @@ const addQualifier = project => ({
 export const fetchProject = key => dispatch => (
     getComponentNavigation(key).then(
         component => dispatch(receiveComponents([mapUuidToId(addQualifier(component))])),
+        onFail(dispatch)
+    )
+);
+
+export const doLogin = (login, password) => dispatch => (
+    auth.login(login, password).then(
+        () => {},
         onFail(dispatch)
     )
 );
