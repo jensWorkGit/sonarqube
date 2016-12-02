@@ -26,6 +26,7 @@ import it.Category4Suite;
 import java.util.List;
 import org.junit.Before;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.wsclient.services.Event;
 import org.sonar.wsclient.services.EventQuery;
@@ -38,6 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static util.ItUtils.projectDir;
 import static util.selenium.Selenese.runSelenese;
 
+@Ignore("history page is not available yet")
 public class EventTest {
 
   @ClassRule
