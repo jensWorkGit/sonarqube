@@ -33,6 +33,7 @@ import accountRoutes from '../../apps/account/routes';
 import backgroundTasksRoutes from '../../apps/background-tasks/routes';
 import codeRoutes from '../../apps/code/routes';
 import codingRulesRoutes from '../../apps/coding-rules/routes';
+import componentRoutes from '../../apps/component/routes';
 import componentIssuesRoutes from '../../apps/component-issues/routes';
 import componentMeasuresRoutes from '../../apps/component-measures/routes';
 import customMeasuresRoutes from '../../apps/custom-measures/routes';
@@ -78,6 +79,7 @@ const startReactApp = () => {
               <Route path="about">{aboutRoutes}</Route>
               <Route path="account">{accountRoutes}</Route>
               <Route path="coding_rules">{codingRulesRoutes}</Route>
+              <Route path="component">{componentRoutes}</Route>
               <Route path="issues">{issuesRoutes}</Route>
               <Route path="maintenance">{maintenanceRoutes}</Route>
               <Route path="projects">{projectsRoutes}</Route>

@@ -29,6 +29,7 @@ import java.util.GregorianCalendar;
 import javax.annotation.Nullable;
 import org.junit.Before;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -127,6 +128,7 @@ public class ProjectAdministrationTest {
 
   // SONAR-4203
   @Test
+  @Ignore("history page is not available yet")
   public void delete_version_of_multimodule_project() {
     GregorianCalendar today = new GregorianCalendar();
     SonarScanner build = SonarScanner.create(projectDir("shared/xoo-multi-modules-sample"))
