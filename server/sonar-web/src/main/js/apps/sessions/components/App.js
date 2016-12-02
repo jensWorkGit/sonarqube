@@ -19,7 +19,6 @@
  */
 // @flow
 import React from 'react';
-import Header from './Header';
 import LoginFormContainer from './LoginFormContainer';
 
 export default class App extends React.Component {
@@ -34,14 +33,8 @@ export default class App extends React.Component {
   render () {
     return (
         <div>
-          <Header/>
-
-          <div id="bd" className="page-wrapper page-wrapper-simple">
-            <div id="nonav" className="page-simple">
-              <h1 className="maintenance-title text-center">Log In to SonarQube</h1>
-              <LoginFormContainer location={this.props.location}/>
-            </div>
-          </div>
+          <h1 className="maintenance-title text-center">Log In to SonarQube</h1>
+          <LoginFormContainer location={this.props.location}/>
         </div>
     );
   }

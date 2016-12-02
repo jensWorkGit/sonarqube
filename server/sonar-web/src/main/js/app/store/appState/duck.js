@@ -21,6 +21,8 @@
 import { createValue } from '../../../components/store/generalReducers';
 
 type AppState = {
+  authenticationError: boolean,
+  authorizationError: boolean,
   qualifiers: Array<string>
 };
 
@@ -38,10 +40,16 @@ export const setAppState = (appState: AppState): Action => ({
   appState
 });
 
+const defaultValue = {
+  authenticationError: false,
+  authorizationError: false
+};
+
 export default createValue(
     (state: AppState, action: Action) => action.type === actions.SET_APP_STATE,
     () => false,
-    (state: AppState, action: Action) => action.appState
+    (state: AppState, action: Action) => ({ ...state, ...action.appState }),
+    defaultValue
 );
 
 export const getRootQualifiers = (state: AppState) => (

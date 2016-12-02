@@ -23,7 +23,8 @@ import { Router, Route, IndexRoute, useRouterHistory } from 'react-router';
 import { createHistory } from 'history';
 import { Provider } from 'react-redux';
 import App from '../components/App';
-import Global from '../components/Global';
+import GlobalContainer from '../components/GlobalContainer';
+import SimpleContainer from '../components/SimpleContainer';
 import Landing from '../components/Landing';
 import ProjectContainer from '../components/ProjectContainer';
 import AdminContainer from '../components/AdminContainer';
@@ -70,20 +71,21 @@ const startReactApp = () => {
   render((
       <Provider store={store}>
         <Router history={history}>
+          <Route component={SimpleContainer}>
+            <Route path="/sessions">{sessionsRoutes}</Route>
+          </Route>
+
           <Route path="/" component={App}>
+
             <IndexRoute component={Landing}/>
 
-            <Route path="sessions">{sessionsRoutes}</Route>
-
-            <Route component={Global}>
+            <Route component={GlobalContainer}>
               <Route path="about">{aboutRoutes}</Route>
               <Route path="account">{accountRoutes}</Route>
               <Route path="coding_rules">{codingRulesRoutes}</Route>
               <Route path="component">{componentRoutes}</Route>
               <Route path="issues">{issuesRoutes}</Route>
-              <Route path="maintenance">{maintenanceRoutes}</Route>
               <Route path="projects">{projectsRoutes}</Route>
-              <Route path="setup">{setupRoutes}</Route>
               <Route path="quality_gates">{qualityGatesRoutes}</Route>
               <Route path="profiles">{qualityProfilesRoutes}</Route>
               <Route path="web_api">{webAPIRoutes}</Route>
@@ -114,6 +116,11 @@ const startReactApp = () => {
                 <Route path="updatecenter">{updateCenterRoutes}</Route>
                 <Route path="users">{usersRoutes}</Route>
               </Route>
+            </Route>
+
+            <Route component={SimpleContainer}>
+              <Route path="maintenance">{maintenanceRoutes}</Route>
+              <Route path="setup">{setupRoutes}</Route>
             </Route>
 
             <Route path="*" component={NotFound}/>

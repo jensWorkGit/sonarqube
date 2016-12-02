@@ -40,7 +40,7 @@ const init = function ({ el, component, currentUser }) {
     resourceQualifier: component.qualifier
   };
   this.state = new State({
-    canBulkChange: !!currentUser,
+    canBulkChange: currentUser.isLoggedIn,
     isContext: true,
     contextQuery: { componentUuids: this.config.resource },
     contextComponentUuid: this.config.resource,

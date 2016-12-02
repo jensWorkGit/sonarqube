@@ -165,6 +165,11 @@ function handleAjaxError (jqXHR) {
   }
 }
 
+function handleNotAuthenticatedError () {
+  window.location = window.baseUrl + '/sessions/new?return_to=' +
+      encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+}
+
 $.ajaxSetup({
   beforeSend (jqXHR) {
     jqXHR.setRequestHeader(getCSRFTokenName(), getCSRFTokenValue());
@@ -177,6 +182,7 @@ $.ajaxSetup({
   },
   statusCode: {
     400: handleAjaxError,
+    401: handleNotAuthenticatedError,
     403: handleAjaxError,
     500: handleAjaxError,
     502: handleAjaxError,

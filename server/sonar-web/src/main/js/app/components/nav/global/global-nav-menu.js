@@ -31,7 +31,7 @@ export default React.createClass({
   },
 
   renderProjects () {
-    const controller = this.props.currentUser ? '/projects/favorite' : '/projects';
+    const controller = this.props.currentUser.isLoggedIn ? '/projects/favorite' : '/projects';
     const url = window.baseUrl + controller;
     return (
         <li className={this.activeLink('/projects')}>
@@ -41,7 +41,7 @@ export default React.createClass({
   },
 
   renderIssuesLink () {
-    const query = this.props.currentUser ? '#resolved=false|assigned_to_me=true' : '#resolved=false';
+    const query = this.props.currentUser.isLoggedIn ? '#resolved=false|assigned_to_me=true' : '#resolved=false';
     const url = window.baseUrl + '/issues' + query;
     return (
         <li className={this.activeLink('/issues')}>
@@ -78,7 +78,7 @@ export default React.createClass({
   },
 
   renderAdministrationLink () {
-    if (!this.props.currentUser || !isUserAdmin(this.props.currentUser)) {
+    if (!isUserAdmin(this.props.currentUser)) {
       return null;
     }
     const url = window.baseUrl + '/settings';

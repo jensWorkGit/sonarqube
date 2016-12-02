@@ -64,7 +64,6 @@ export default React.createClass({
   },
 
   render() {
-    const isUserAuthenticated = !!this.props.currentUser;
-    return isUserAuthenticated ? this.renderAuthenticated() : this.renderAnonymous();
+    return this.props.currentUser.isLoggedIn ? this.renderAuthenticated() : this.renderAnonymous();
   }
 });

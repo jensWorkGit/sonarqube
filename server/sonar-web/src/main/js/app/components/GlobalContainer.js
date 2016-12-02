@@ -19,14 +19,21 @@
  */
 // @flow
 import React from 'react';
-import GlobalNavBranding from '../../../app/components/nav/global/GlobalNavBranding';
+import GlobalNav from './nav/global/global-nav';
+import GlobalFooter from './GlobalFooter';
+import GlobalMessagesContainer from './GlobalMessagesContainer';
 
-export default class Header extends React.Component {
+export default class GlobalContainer extends React.Component {
   render () {
     return (
-        <nav className="navbar navbar-global page-container" id="global-navigation">
-          <GlobalNavBranding/>
-        </nav>
+        <div className="global-container">
+          <div className="page-wrapper page-wrapper-global" id="container">
+            <GlobalNav/>
+            <GlobalMessagesContainer/>
+            {this.props.children}
+          </div>
+          <GlobalFooter/>
+        </div>
     );
   }
 }

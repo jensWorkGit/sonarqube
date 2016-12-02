@@ -30,7 +30,7 @@ class Landing extends React.Component {
 
   componentDidMount () {
     const { currentUser, router } = this.props;
-    if (currentUser && currentUser.isLoggedIn) {
+    if (currentUser.isLoggedIn) {
       router.replace('/projects/favorite');
     } else {
       router.replace('/about');

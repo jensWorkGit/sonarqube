@@ -39,7 +39,7 @@ class GlobalNavBranding extends React.Component {
   }
 
   render () {
-    const homeController = this.props.currentUser ? '/projects/favorite' : '/about';
+    const homeController = this.props.currentUser.isLoggedIn ? '/projects/favorite' : '/about';
     const homeUrl = window.baseUrl + homeController;
     const homeLinkClassName = 'navbar-brand' + (this.props.customLogoUrl ? ' navbar-brand-custom' : '');
     return (

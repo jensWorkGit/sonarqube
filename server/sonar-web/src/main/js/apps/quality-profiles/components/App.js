@@ -43,6 +43,7 @@ export default class App extends React.Component {
 
   loadData () {
     this.setState({ loading: true });
+    // FIXME do not request current user
     Promise.all([
       getCurrentUser(),
       getExporters(),

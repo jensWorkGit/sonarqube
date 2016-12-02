@@ -18,10 +18,20 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import React from 'react';
+import { connect } from 'react-redux';
 import SettingsNav from './nav/settings/settings-nav';
+import NotAuthorized from './NotAuthorized';
+import { getCurrentUser } from '../store/rootReducer';
+import { isUserAdmin } from '../../helpers/users';
 
-export default class AdminContainer extends React.Component {
+class AdminContainer extends React.Component {
   render () {
+    const { currentUser } = this.props;
+
+    if (!isUserAdmin(currentUser)) {
+      return <NotAuthorized/>;
+    }
+
     return (
         <div>
           <SettingsNav/>
@@ -30,3 +40,9 @@ export default class AdminContainer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  currentUser: getCurrentUser(state)
+});
+
+export default connect(mapStateToProps)(AdminContainer);

@@ -97,7 +97,7 @@ export default Marionette.LayoutView.extend({
     const that = this;
     this.results = new Backbone.Collection();
     this.favorite = [];
-    if (this.model.get('currentUser')) {
+    if (this.model.get('currentUser').isLoggedIn) {
       this.fetchFavorite().always(function () {
         that.resetResultsToDefault();
       });

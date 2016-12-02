@@ -19,18 +19,34 @@
  */
 // @flow
 import React from 'react';
-import GlobalNav from './nav/global/global-nav';
 import GlobalFooter from './GlobalFooter';
-import GlobalMessagesContainer from './GlobalMessagesContainer';
 
-export default class Global extends React.Component {
+export default class SimpleContainer extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.element.isRequired
+  };
+
+  componentDidMount () {
+    document.querySelector('html').classList.add('dashboard-page');
+  }
+
+  componentWillUnmount () {
+    document.querySelector('html').classList.remove('dashboard-page');
+  }
+
   render () {
     return (
-        <div>
+        <div className="global-container">
           <div className="page-wrapper page-wrapper-global" id="container">
-            <GlobalNav/>
-            <GlobalMessagesContainer/>
-            {this.props.children}
+            <nav className="navbar navbar-global page-container" id="global-navigation">
+              <div className="navbar-header"></div>
+            </nav>
+
+            <div id="bd" className="page-wrapper-simple">
+              <div id="nonav" className="page-simple">
+                {this.props.children}
+              </div>
+            </div>
           </div>
           <GlobalFooter/>
         </div>

@@ -17,36 +17,14 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import { combineReducers } from 'redux';
-import uniq from 'lodash/uniq';
-import { RECEIVE_CURRENT_USER } from './actions';
+import React from 'react';
 
-const usersByLogin = (state = {}, action = {}) => {
-  if (action.type === RECEIVE_CURRENT_USER) {
-    return { ...state, [action.user.login]: action.user };
+export default class NotAuthorized extends React.Component {
+  render () {
+    return (
+      <div className="alert alert-danger">
+        You are not authorized to see this page.
+      </div>
+    );
   }
-
-  return state;
-};
-
-const userLogins = (state = [], action = {}) => {
-  if (action.type === RECEIVE_CURRENT_USER) {
-    return uniq([...state, action.user.login]);
-  }
-
-  return state;
-};
-
-const currentUser = (state = null, action = {}) => {
-  if (action.type === RECEIVE_CURRENT_USER) {
-    return action.user;
-  }
-
-  return state;
-};
-
-export default combineReducers({ usersByLogin, userLogins, currentUser });
-
-export const getCurrentUser = state => (
-    state.currentUser
-);
+}
