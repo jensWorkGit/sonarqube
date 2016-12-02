@@ -20,6 +20,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import GlobalLoading from './GlobalLoading';
 import { fetchCurrentUser } from '../store/users/actions';
 import { fetchLanguages, fetchAppState } from '../store/rootActions';
 import { requestMessages } from '../../helpers/l10n';
@@ -43,16 +44,14 @@ class App extends React.Component {
       requestMessages(),
       this.props.fetchAppState(),
       this.props.fetchCurrentUser()
-    ]).then(() => {
-      this.setState({ loading: false });
-    });
+    ]).then(() => this.setState({ loading: false }));
 
     this.props.fetchLanguages();
   }
 
   render () {
     if (this.state.loading) {
-      return <p>Loading...</p>;
+      return <GlobalLoading/>;
     }
 
     return this.props.children;
