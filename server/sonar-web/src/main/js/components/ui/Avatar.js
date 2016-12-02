@@ -60,3 +60,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Avatar);
+
+export const unconnectedAvatar = Avatar;
