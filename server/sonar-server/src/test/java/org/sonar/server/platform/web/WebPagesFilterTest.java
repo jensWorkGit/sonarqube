@@ -39,6 +39,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
@@ -73,7 +74,22 @@ public class WebPagesFilterTest {
   }
 
   @Test
-  public void return_index_file_with_default_web_context() throws Exception {
+  public void return_index_file_content() throws Exception {
+    mockIndexFile();
+    mockPath("/foo", "");
+    underTest.init(filterConfig);
+    underTest.doFilter(request, response, chain);
+
+    assertThat(outputStream.toString()).contains("<head>");
+    verify(response).setContentType("text/html");
+    verify(response).setCharacterEncoding("utf-8");
+    verify(response).setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    verify(response).getOutputStream();
+    verifyNoMoreInteractions(response);
+  }
+
+  @Test
+  public void return_index_file_content_with_default_web_context() throws Exception {
     mockIndexFile();
     mockPath("/foo", "");
     underTest.init(filterConfig);
@@ -82,11 +98,10 @@ public class WebPagesFilterTest {
     assertThat(outputStream.toString()).contains("href=\"/sonar.css\"");
     assertThat(outputStream.toString()).contains("<script src=\"/sonar.js\"></script>");
     assertThat(outputStream.toString()).doesNotContain("%WEB_CONTEXT%");
-    verify(response).setContentType("text/html");
   }
 
   @Test
-  public void return_index_file_with_web_context() throws Exception {
+  public void return_index_file_content_with_web_context() throws Exception {
     mockIndexFile();
     mockPath("/foo", "/web");
     underTest.init(filterConfig);

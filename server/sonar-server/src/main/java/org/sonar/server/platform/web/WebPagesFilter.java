@@ -30,12 +30,16 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.sonar.api.web.ServletFilter;
-import org.sonarqube.ws.MediaTypes;
 
+import static java.util.Locale.ENGLISH;
 import static java.util.Objects.requireNonNull;
+import static org.apache.commons.codec.Charsets.UTF_8;
+import static org.apache.commons.io.IOUtils.write;
 import static org.sonar.api.web.ServletFilter.UrlPattern.Builder.staticResourcePatterns;
+import static org.sonarqube.ws.MediaTypes.HTML;
 
 /**
  * This filter provide the HTML file that will be used to display every web pages.
@@ -43,39 +47,43 @@ import static org.sonar.api.web.ServletFilter.UrlPattern.Builder.staticResourceP
  */
 public class WebPagesFilter implements Filter {
 
+  private static final String CACHE_CONTROL_HEADER = "Cache-Control";
+  private static final String CACHE_CONTROL_VALUE = "no-cache, no-store, must-revalidate";
+
   private static final String CONTEXT_PLACEHOLDER = "%WEB_CONTEXT%";
 
   private static final ServletFilter.UrlPattern URL_PATTERN = ServletFilter.UrlPattern
     .builder()
-    // This exclusion won't be needed anymore when static resources will be handled in a dedicated filter, executed before this one
     .excludes(staticResourcePatterns())
     // These exclusions won't be needed anymore when this filter will be last filter (no more rails filter)
     .excludes("/api/*", "/batch/*")
     .build();
 
-  private String index;
+  private String indexDotHtml;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
     String path = httpServletRequest.getRequestURI().replaceFirst(httpServletRequest.getContextPath(), "");
     if (!URL_PATTERN.matches(path)) {
       chain.doFilter(request, response);
       return;
     }
-
-    response.setContentType(MediaTypes.HTML);
-    IOUtils.write(index, response.getOutputStream());
+    httpServletResponse.setContentType(HTML);
+    httpServletResponse.setCharacterEncoding(UTF_8.name().toLowerCase(ENGLISH));
+    httpServletResponse.setHeader(CACHE_CONTROL_HEADER, CACHE_CONTROL_VALUE);
+    write(indexDotHtml, httpServletResponse.getOutputStream());
   }
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     String context = filterConfig.getServletContext().getContextPath();
     String indexFile = readIndexFile(filterConfig.getServletContext());
-    this.index = indexFile.replaceAll(CONTEXT_PLACEHOLDER, context);
+    this.indexDotHtml = indexFile.replaceAll(CONTEXT_PLACEHOLDER, context);
   }
 
-  private String readIndexFile(ServletContext servletContext) {
+  private static String readIndexFile(ServletContext servletContext) {
     try {
       return IOUtils.toString(requireNonNull(servletContext.getResource("/index.html")), StandardCharsets.UTF_8);
     } catch (Exception e) {
