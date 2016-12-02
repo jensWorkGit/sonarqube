@@ -82,7 +82,7 @@ public class PersistEventsStepTest extends BaseStepTest {
   public void setup() {
     when(system2.now()).thenReturn(1225630680000L);
     analysisMetadataHolder.setAnalysisDate(someDate.getTime()).setUuid(ANALYSIS_UUID);
-    underTest = new PersistEventsStep(dbTester.getDbClient(), system2, treeRootHolder, analysisMetadataHolder, eventRepository);
+    underTest = new PersistEventsStep(dbTester.getDbClient(), system2, treeRootHolder, analysisMetadataHolder, eventRepository, uuidFactory);
     when(eventRepository.getEvents(any(Component.class))).thenReturn(Collections.<Event>emptyList());
   }
 
